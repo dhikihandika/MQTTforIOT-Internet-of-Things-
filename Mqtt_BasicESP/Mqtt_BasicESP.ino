@@ -14,25 +14,24 @@
  achieve the same result without blocking the main loop.
 */
 
-#include <WiFi.h>
-#include <PubSubClient.h>
+#include <WiFi.h>                                                                  // Include library wifi client 
+#include <PubSubClient.h>                                                          // Include library Publish and Subscribe MQTT by Nick O'Leary (Knolleary)
 
-#define internalLED 2
+#define internalLED 2                                                              // Define internal LED pinout for ESP (ESP8266: GPIO2, ESP32: GPIO2)
 
-// Define variable ssd, password, mqtt_broker
-const char* ssid = "Parametrik_Prod";
+// Define variable ssd, password, & mqtt_broker
+const char* ssid = "Parametrik_Prod";                                              
 const char* password = "tabassam";
-
 const char* mqtt_broker = "192.168.0.120";
 
-WiFiClient espClient;
-PubSubClient client(espClient);
+WiFiClient espClient;                                                              // Instance name WiFiClient as espClient
+PubSubClient client(espClient);                                                    // Instance name PubSubClient as client 
 
-long lastMsg = 0;
-char msgOut[20];
-char msgIn[128];
-int value = 0;
-String struv;
+char msgOut[20];                                                                   // Define char_of_array buffer variable publish message
+char msgIn[128];                                                                   // Define char_of_array buffer varibale subscribe message
+long lastMsg = 0;                                                                  // Define long varibale for function milis() time calculation
+int value = 0;                                                                     // Define varible value use as increamment calculation
+String struv;                                                                      // Define varibale string use as convertion integer to string
 
 void setup() {
   Serial.begin(9600);
