@@ -11,8 +11,8 @@
 
 // Define variable ssd, password, & mqtt_broker
 const char* ssid = "Parametrik RnD";                                              
-const char* password = "tabassam";
-const char* mqtt_broker = "192.168.1.8";
+const char* password = "xxxxxxxxxx";
+const char* mqtt_broker = "xxxxxxxxxxxx";
 
 WiFiClient espClient;                                                              // Instance name WiFiClient as espClient
 PubSubClient client(espClient);                                                    // Instance name PubSubClient as client 
@@ -59,7 +59,7 @@ void reconnect() {
       Serial.println("Connected to MQTT broker!");
       Serial.print("Broker:");
       Serial.println(mqtt_broker);
-      digitalWrite(LEDInternalESP, HIGH);
+      digitalWrite(internalLED, HIGH);
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
