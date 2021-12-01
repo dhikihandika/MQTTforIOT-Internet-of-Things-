@@ -10,9 +10,9 @@
 #define internalLED 2                                                              // Define internal LED pinout for ESP (ESP8266: GPIO2, ESP32: GPIO2)
 
 // Define variable ssd, password, & mqtt_broker
-const char* ssid = "Parametrik_Prod";                                              
+const char* ssid = "Parametrik RnD";                                              
 const char* password = "xxxxxxxxxx";
-const char* mqtt_broker = "192.168.1.8";
+const char* mqtt_broker = "xxxxxxxxxxxx";
 
 WiFiClient espClient;                                                              // Instance name WiFiClient as espClient
 PubSubClient client(espClient);                                                    // Instance name PubSubClient as client 
@@ -28,7 +28,6 @@ void setup() {
   pinMode(internalLED, OUTPUT);
   setup_wifi();
   client.setServer(mqtt_broker, 1883);
-  client.setCallback(callback);
 }
 
 void setup_wifi() {
@@ -60,6 +59,7 @@ void reconnect() {
       Serial.println("Connected to MQTT broker!");
       Serial.print("Broker:");
       Serial.println(mqtt_broker);
+      digitalWrite(internalLED, HIGH);
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());

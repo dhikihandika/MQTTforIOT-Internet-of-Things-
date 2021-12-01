@@ -8,8 +8,8 @@
 #include <WiFi.h>
 #define LEDInternalESP 2
 
-const char* ssid     = "Parametrik_Prod";
-const char* password = "xxxxxxxxxxx";
+const char* ssid     = "Parametrik RnD";
+const char* password = "tabassam";
 
 void setup()
 {

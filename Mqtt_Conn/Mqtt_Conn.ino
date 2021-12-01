@@ -1,17 +1,7 @@
 /*
- Basic MQTT example
- Date Create: 11/25/2021
+ Basic MQTT Connection
+ Date Create: 01/12/2021
  Create by: Parametrik
-
- This sketch demonstrates the basic capabilities of the library.
- It connects to an MQTT server then:
-  - publishes "value:0++" to the topic "ITSCourseOut"
-  - subscribes to the topic "ITSCourseIn", printing out any messages
-    it receives. NB - it assumes the received payloads are strings not binary
-
- It will reconnect to the server if the connection is lost using a blocking
- reconnect function. See the 'mqtt_reconnect_nonblocking' example for how to
- achieve the same result without blocking the main loop.
 */
 
 #include <WiFi.h>                                                                  // Include library wifi client 
@@ -21,8 +11,8 @@
 
 // Define variable ssd, password, & mqtt_broker
 const char* ssid = "Parametrik RnD";                                              
-const char* password = "xxxxxxxxxx";
-const char* mqtt_broker = "xxxxxxxxxx";
+const char* password = "tabassam";
+const char* mqtt_broker = "192.168.1.8";
 
 WiFiClient espClient;                                                              // Instance name WiFiClient as espClient
 PubSubClient client(espClient);                                                    // Instance name PubSubClient as client 
@@ -38,7 +28,6 @@ void setup() {
   pinMode(internalLED, OUTPUT);
   setup_wifi();
   client.setServer(mqtt_broker, 1883);
-  client.setCallback(callback);
 }
 
 void setup_wifi() {
@@ -61,17 +50,6 @@ void setup_wifi() {
   Serial.println(WiFi.localIP());
 }
 
-void callback(char* topic, byte* payload, unsigned int length) {
-  Serial.print("Message arrived [");
-  Serial.print(topic);
-  Serial.print("] ");
-  for (int i=0;i<length;i++) {
-    Serial.print((char)payload[i]);
-    msgIn[(i - 0)] = (char)payload[i];
-  }
-  Serial.println();
-}
-
 void reconnect() {
   // Loop until we're reconnected
   while (!client.connected()) {
@@ -81,7 +59,7 @@ void reconnect() {
       Serial.println("Connected to MQTT broker!");
       Serial.print("Broker:");
       Serial.println(mqtt_broker);
-      client.publish("ITSCourseOut", "start connected");
+      digitalWrite(LEDInternalESP, HIGH);
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -95,36 +73,6 @@ void reconnect() {
 void loop() {
   if (!client.connected()) {
     reconnect();
-  }
-
-  long now = millis();
-  if (now - lastMsg > 2000) {
-    lastMsg = now;
-
-    struv = "value: " + String(value);
-	  struv.toCharArray(msgOut,20);
-    
-    Serial.print(" Message publish [");
-    Serial.print("ITSCourseOut");
-    Serial.print("]");
-    Serial.println(msgOut);
-    client.publish("ITSCourseOut", msgOut);
-
-    client.subscribe("ITSCourseIn");
-    Serial.print("Subs:");
-    Serial.println(msgIn);
-    value++;
-  }
-
-  String s = String(msgIn);
-  if(s == "led ON"){
-    digitalWrite(internalLED, HIGH);
-    s = "";
-  } else {
-    if(s == "led OF"){
-      digitalWrite(internalLED, LOW);
-      s = "";
-    }
   }
   client.loop();
 }
