@@ -61,17 +61,6 @@ void setup_wifi() {
   Serial.println(WiFi.localIP());
 }
 
-void callback(char* topic, byte* payload, unsigned int length) {
-  Serial.print("Message arrived [");
-  Serial.print(topic);
-  Serial.print("] ");
-  for (int i=0;i<length;i++) {
-    Serial.print((char)payload[i]);
-    msgIn[(i - 0)] = (char)payload[i];
-  }
-  Serial.println();
-}
-
 void reconnect() {
   // Loop until we're reconnected
   while (!client.connected()) {
@@ -81,7 +70,6 @@ void reconnect() {
       Serial.println("Connected to MQTT broker!");
       Serial.print("Broker:");
       Serial.println(mqtt_broker);
-      client.publish("ITSCourseOut", "start connected");
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -95,36 +83,6 @@ void reconnect() {
 void loop() {
   if (!client.connected()) {
     reconnect();
-  }
-
-  long now = millis();
-  if (now - lastMsg > 2000) {
-    lastMsg = now;
-
-    struv = "value: " + String(value);
-	  struv.toCharArray(msgOut,20);
-    
-    Serial.print(" Message publish [");
-    Serial.print("ITSCourseOut");
-    Serial.print("]");
-    Serial.println(msgOut);
-    client.publish("ITSCourseOut", msgOut);
-
-    client.subscribe("ITSCourseIn");
-    Serial.print("Subs:");
-    Serial.println(msgIn);
-    value++;
-  }
-
-  String s = String(msgIn);
-  if(s == "led ON"){
-    digitalWrite(internalLED, HIGH);
-    s = "";
-  } else {
-    if(s == "led OF"){
-      digitalWrite(internalLED, LOW);
-      s = "";
-    }
   }
   client.loop();
 }

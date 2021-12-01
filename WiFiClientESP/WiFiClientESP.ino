@@ -9,7 +9,7 @@
 #define LEDInternalESP 2
 
 const char* ssid     = "Parametrik_Prod";
-const char* password = "tabassam";
+const char* password = "xxxxxxxxxxx";
 
 void setup()
 {
