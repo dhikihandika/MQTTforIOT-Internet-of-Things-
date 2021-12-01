@@ -11,7 +11,7 @@
 
 // Define variable ssd, password, & mqtt_broker
 const char* ssid = "Parametrik RnD";                                              
-const char* password = "xxxxxxxxxx";
+const char* password = "xxxxxxxxxxxx";
 const char* mqtt_broker = "xxxxxxxxxxxx";
 
 WiFiClient espClient;                                                              // Instance name WiFiClient as espClient

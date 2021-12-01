@@ -21,8 +21,8 @@
 
 // Define variable ssd, password, & mqtt_broker
 const char* ssid = "Parametrik RnD";                                              
-const char* password = "xxxxxxxxxx";
-const char* mqtt_broker = "xxxxxxxxxx";
+const char* password = "xxxxxxxxxxx";
+const char* mqtt_broker = "xxxxxxxxxxxx";
 
 WiFiClient espClient;                                                              // Instance name WiFiClient as espClient
 PubSubClient client(espClient);                                                    // Instance name PubSubClient as client 
@@ -101,7 +101,7 @@ void loop() {
   if (now - lastMsg > 2000) {
     lastMsg = now;
 
-    struv = "value: " + String(value);
+    struv = "temperature: " + String(value) + "deg";
 	  struv.toCharArray(msgOut,20);
     
     Serial.print(" Message publish [");
@@ -117,11 +117,11 @@ void loop() {
   }
 
   String s = String(msgIn);
-  if(s == "led ON"){
+  if(s == "Led ON"){
     digitalWrite(internalLED, HIGH);
     s = "";
   } else {
-    if(s == "led OF"){
+    if(s == "Led OF"){
       digitalWrite(internalLED, LOW);
       s = "";
     }
