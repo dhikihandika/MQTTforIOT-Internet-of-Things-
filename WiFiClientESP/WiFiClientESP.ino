@@ -5,11 +5,12 @@
 */
 
 
-#include <WiFi.h>
+// #include <ESP8266WiFi.h>                                                           // Include library wifi client (ESP8266)
+#include <WiFi.h>                                                                  // Include library wifi client (ESP32)
 #define LEDInternalESP 2
 
 const char* ssid     = "Parametrik RnD";
-const char* password = "xxxxxxxxxxx";
+const char* password = "tabassam";
 
 void setup()
 {

@@ -4,15 +4,16 @@
  Create by: Parametrik
 */
 
-#include <WiFi.h>                                                                  // Include library wifi client 
+// #include <ESP8266WiFi.h>                                                        // Include library wifi client (ESP8266)
+#include <WiFi.h>                                                                  // Include library wifi client (ESP32)
 #include <PubSubClient.h>                                                          // Include library Publish and Subscribe MQTT by Nick O'Leary (Knolleary)
 
 #define internalLED 2                                                              // Define internal LED pinout for ESP (ESP8266: GPIO2, ESP32: GPIO2)
 
 // Define variable ssd, password, & mqtt_broker
 const char* ssid = "Parametrik RnD";                                              
-const char* password = "xxxxxxxxxxxx";
-const char* mqtt_broker = "xxxxxxxxxxxx";
+const char* password = "tabassam";
+const char* mqtt_broker = "192.168.1.5";
 
 WiFiClient espClient;                                                              // Instance name WiFiClient as espClient
 PubSubClient client(espClient);                                                    // Instance name PubSubClient as client 
